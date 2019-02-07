@@ -140,7 +140,7 @@
                     <navigationItem key="navigationItem" title="Contatos" id="v04-XW-nQF">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="4Km-es-Bs9">
                             <connections>
-                                <segue destination="BYZ-38-t0r" kind="show" id="pMx-Lv-E1d"/>
+                                <segue destination="BYZ-38-t0r" kind="show" identifier="FormSegue" id="pMx-Lv-E1d"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

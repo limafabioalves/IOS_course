@@ -30,6 +30,10 @@ class ContatoDao: NSObject {
         return contatos[posicao]
     }
     
+    func buscaPosicaoDoContato(_ contato: Contato) -> Int {
+        return contatos.index(of: contato)!
+    }
+    
     static func sharedInstance() -> ContatoDao{
         if defaultDAO == nil {
             defaultDAO = ContatoDao()

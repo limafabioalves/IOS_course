@@ -8,16 +8,30 @@
 
 import UIKit
 
-class ListaContatosViewControllerTableViewController: UITableViewController {
+class ListaContatosViewControllerTableViewController: UITableViewController, FormularioContatoViewControllerDelegate {
 
     var dao: ContatoDao
     static let cellIdentifier = "Cell"
+    var linhaDestaque: IndexPath?
+    
+    func contatoAdicionado(_ contato: Contato) {
+        print("Contato adicionado: \(contato.nome)")
+        
+        self.linhaDestaque = IndexPath(row: dao.buscaPosicaoDoContato(contato), section: 0)
+    }
+    
+    func contatoAtualizado(_ contato: Contato) {
+        print("Contato atualizado: \(contato.nome)")
+        
+        self.linhaDestaque = IndexPath(row: dao.buscaPosicaoDoContato(contato), section: 0)
+    }
     
     func exibeFormulario(_ contato: Contato) {
         let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         
         let formulario = storyboard.instantiateViewController(withIdentifier: "Form-Contato") as! FormularioContatoViewController
         
+        formulario.delegate = self
         formulario.contato = contato
         self.navigationController?.pushViewController(formulario, animated: true)
     }
@@ -29,6 +43,14 @@ class ListaContatosViewControllerTableViewController: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         self.tableView.reloadData()
+        if let linha = self.linhaDestaque {
+            self.tableView.selectRow(at: linha, animated: true, scrollPosition: .middle)
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
+                self.tableView.deselectRow(at: linha, animated: true)
+                self.linhaDestaque = Optional.none
+            })
+        }
     }
     
     override func viewDidLoad() {
@@ -114,14 +136,19 @@ class ListaContatosViewControllerTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if segue.identifier == "FormSegue"{
+            if let formulario = segue.destination as? FormularioContatoViewController{
+                formulario.delegate = self
+            }
+        }
     }
-    */
+    
 
 }

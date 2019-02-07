@@ -11,6 +11,7 @@ import UIKit
 class FormularioContatoViewController: UIViewController {
 
     var dao:ContatoDao
+    var delegate:FormularioContatoViewControllerDelegate?
     
     required init?(coder aDecoder: NSCoder){
         self.dao = ContatoDao.sharedInstance()
@@ -55,6 +56,8 @@ class FormularioContatoViewController: UIViewController {
     func atualizaContato() {
         pegaDadosDoFormulario()
         
+        self.delegate?.contatoAtualizado(contato)
+        
         _ = self.navigationController?.popViewController(animated: true)
     }
 
@@ -62,6 +65,8 @@ class FormularioContatoViewController: UIViewController {
         self.pegaDadosDoFormulario()
         
         dao.adiciona(contato)
+        
+        self.delegate?.contatoAdicionado(contato)
         
         var number: Int = 0
         
