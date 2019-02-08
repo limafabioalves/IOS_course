@@ -48,11 +48,13 @@ class GerenciadorDeAcoes: NSObject {
         
         let device = UIDevice.current
         
-        if device.model.capitalized == "IPHONE"  {
+        if device.model == "iPhone"  {
             print("UUID \(device.identifierForVendor!)")
             abrirAplicativo(com: "tel:" + self.contato.telefone)
         } else {
             let alert = UIAlertController(title: "Impossível fazer ligações", message: "Seu dispositivo não é um iPhone", preferredStyle: .alert)
+            let acao= UIAlertAction(title: "OK", style: .default, handler: nil)
+            alert.addAction(acao)
             self.controller.present(alert, animated: true, completion: nil)
         }
     }
