@@ -8,10 +8,12 @@
 
 import UIKit
 
-class FormularioContatoViewController: UIViewController {
+class FormularioContatoViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
     var dao:ContatoDao
     var delegate:FormularioContatoViewControllerDelegate?
+    
+    var contato: Contato!
     
     required init?(coder aDecoder: NSCoder){
         self.dao = ContatoDao.sharedInstance()
@@ -29,18 +31,46 @@ class FormularioContatoViewController: UIViewController {
             self.endereco.text = contato.endereco
             self.site.text = contato.site
             
+            if let foto = contato.foto {
+                self.imageView.image = foto
+            }
+            
             let botaoAlterar = UIBarButtonItem(title: "Confirmar", style: .plain, target: self, action: #selector(atualizaContato))
             
             self.navigationItem.rightBarButtonItem = botaoAlterar
         }
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(selecionaFoto(sender:)))
+        
+        self.imageView.addGestureRecognizer(tap)
+    }
+    
+    func selecionaFoto(sender: AnyObject){
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            print("camera disponivel")
+        } else {
+            let imagePicker = UIImagePickerController()
+            imagePicker.sourceType = .photoLibrary
+            imagePicker.allowsEditing = true
+            imagePicker.delegate = self
+            
+            self.present(imagePicker, animated: true, completion: nil)
+        }
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: AnyObject]){
+        
+        
+        if let imagemSelecionada = info[UIImagePickerControllerEditedImage] as? UIImage{
+            self.imageView.image = imagemSelecionada
+        }
+        picker.dismiss(animated: true, completion: nil)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    var contato: Contato!
     
     func pegaDadosDoFormulario(){
         if contato == nil {
@@ -51,6 +81,7 @@ class FormularioContatoViewController: UIViewController {
         contato.telefone = self.telefone.text!
         contato.endereco = self.endereco.text!
         contato.site = self.site.text!
+        contato.foto = self.imageView.image
     }
     
     func atualizaContato() {
@@ -83,6 +114,7 @@ class FormularioContatoViewController: UIViewController {
     @IBOutlet var telefone: UITextField!
     @IBOutlet var endereco: UITextField!
     @IBOutlet var site: UITextField!
+    @IBOutlet var imageView: UIImageView!
     
 
 }

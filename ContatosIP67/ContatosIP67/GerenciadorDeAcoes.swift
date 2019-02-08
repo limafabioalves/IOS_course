@@ -53,7 +53,7 @@ class GerenciadorDeAcoes: NSObject {
             abrirAplicativo(com: "tel:" + self.contato.telefone)
         } else {
             let alert = UIAlertController(title: "Impossível fazer ligações", message: "Seu dispositivo não é um iPhone", preferredStyle: .alert)
-            let acao= UIAlertAction(title: "OK", style: .default, handler: nil)
+            let acao = UIAlertAction(title: "OK", style: .default, handler: nil)
             alert.addAction(acao)
             self.controller.present(alert, animated: true, completion: nil)
         }
