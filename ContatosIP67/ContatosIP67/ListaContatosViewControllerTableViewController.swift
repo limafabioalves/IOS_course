@@ -26,6 +26,18 @@ class ListaContatosViewControllerTableViewController: UITableViewController, For
         self.linhaDestaque = IndexPath(row: dao.buscaPosicaoDoContato(contato), section: 0)
     }
     
+    func exibirMaisAcoes(gesture: UIGestureRecognizer){
+        if gesture.state == .began{
+            let ponto = gesture.location(in: self.tableView)
+            if let indexPath = self.tableView.indexPathForRow(at: ponto) {
+                let contato = self.dao.buscaContatoNaPosicao(indexPath.row)
+                let acoes = GerenciadorDeAcoes(do: contato)
+                
+                acoes.exibirAcoes(em: self)
+            }
+        }
+    }
+    
     func exibeFormulario(_ contato: Contato) {
         let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         
@@ -56,11 +68,12 @@ class ListaContatosViewControllerTableViewController: UITableViewController, For
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         self.navigationItem.leftBarButtonItem = self.editButtonItem
+        
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(exibirMaisAcoes(gesture:)))
+        
+        self.tableView.addGestureRecognizer(longPress)
+        
     }
 
     override func didReceiveMemoryWarning() {

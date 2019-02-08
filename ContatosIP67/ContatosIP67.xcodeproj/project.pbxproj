@@ -19,6 +19,7 @@
 		FD8BE4CB220A566C00B7833C /* ContatoDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8BE4CA220A566C00B7833C /* ContatoDao.swift */; };
 		FD8BE4CD220A613000B7833C /* ListaContatosViewControllerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8BE4CC220A613000B7833C /* ListaContatosViewControllerTableViewController.swift */; };
 		FDBB49C3220CD850003EDCDC /* FormularioContatoViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDBB49C2220CD850003EDCDC /* FormularioContatoViewControllerDelegate.swift */; };
+		FDBB49C5220CF7C0003EDCDC /* GerenciadorDeAcoes.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDBB49C4220CF7C0003EDCDC /* GerenciadorDeAcoes.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		FD8BE4CA220A566C00B7833C /* ContatoDao.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContatoDao.swift; sourceTree = "<group>"; };
 		FD8BE4CC220A613000B7833C /* ListaContatosViewControllerTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListaContatosViewControllerTableViewController.swift; sourceTree = "<group>"; };
 		FDBB49C2220CD850003EDCDC /* FormularioContatoViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormularioContatoViewControllerDelegate.swift; sourceTree = "<group>"; };
+		FDBB49C4220CF7C0003EDCDC /* GerenciadorDeAcoes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GerenciadorDeAcoes.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 				FD8BE495220A32B600B7833C /* AppDelegate.swift */,
 				FD8BE497220A32B600B7833C /* FormularioContatoViewController.swift */,
 				FD8BE4CC220A613000B7833C /* ListaContatosViewControllerTableViewController.swift */,
+				FDBB49C4220CF7C0003EDCDC /* GerenciadorDeAcoes.swift */,
 				FDBB49C2220CD850003EDCDC /* FormularioContatoViewControllerDelegate.swift */,
 				FD8BE4CA220A566C00B7833C /* ContatoDao.swift */,
 				FD8BE499220A32B600B7833C /* Main.storyboard */,
@@ -281,6 +284,7 @@
 			files = (
 				FD8BE4C9220A4B5800B7833C /* Contato.m in Sources */,
 				FD8BE498220A32B600B7833C /* FormularioContatoViewController.swift in Sources */,
+				FDBB49C5220CF7C0003EDCDC /* GerenciadorDeAcoes.swift in Sources */,
 				FDBB49C3220CD850003EDCDC /* FormularioContatoViewControllerDelegate.swift in Sources */,
 				FD8BE4CB220A566C00B7833C /* ContatoDao.swift in Sources */,
 				FD8BE4CD220A613000B7833C /* ListaContatosViewControllerTableViewController.swift in Sources */,
