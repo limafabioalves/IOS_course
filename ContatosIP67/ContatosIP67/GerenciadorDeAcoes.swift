@@ -48,7 +48,7 @@ class GerenciadorDeAcoes: NSObject {
         
         let device = UIDevice.current
         
-        if device.model == "iPhone"{
+        if device.model.capitalized == "IPHONE"  {
             print("UUID \(device.identifierForVendor!)")
             abrirAplicativo(com: "tel:" + self.contato.telefone)
         } else {
