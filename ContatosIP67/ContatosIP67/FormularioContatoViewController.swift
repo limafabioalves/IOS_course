@@ -33,6 +33,10 @@ class FormularioContatoViewController: UIViewController, UINavigationControllerD
             
             if let foto = contato.foto {
                 self.imageView.image = foto
+                
+                self.imageView.layer.cornerRadius = 75
+                self.imageView.layer.masksToBounds = true
+                self.imageView.clipsToBounds = true
             }
             
             let botaoAlterar = UIBarButtonItem(title: "Confirmar", style: .plain, target: self, action: #selector(atualizaContato))
@@ -62,6 +66,8 @@ class FormularioContatoViewController: UIViewController, UINavigationControllerD
         
         
         if let imagemSelecionada = info[UIImagePickerControllerEditedImage] as? UIImage{
+         
+            
             self.imageView.image = imagemSelecionada
         }
         picker.dismiss(animated: true, completion: nil)
