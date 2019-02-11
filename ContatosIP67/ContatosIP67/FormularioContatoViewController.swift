@@ -7,13 +7,39 @@
 //
 
 import UIKit
+import CoreLocation
 
 class FormularioContatoViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-
+    
     var dao:ContatoDao
     var delegate:FormularioContatoViewControllerDelegate?
     
     var contato: Contato!
+    
+    @IBAction func buscarCoordenadas(sender: UIButton) {
+        
+        self.loading.startAnimating()
+        sender.isEnabled = false
+        
+        let geocoder = CLGeocoder()
+        
+        if let endereco = self.endereco.text {
+            geocoder.geocodeAddressString(endereco) {
+                (resultado, error) in
+                
+                if error == nil && (resultado?.count)! > 0 {
+                    let placemark = resultado![0]
+                    let coordenada = placemark.location!.coordinate
+                    
+                    self.latitude.text = coordenada.latitude.description
+                    self.longitude.text = coordenada.longitude.description
+                }
+                
+                self.loading.stopAnimating()
+                sender.isEnabled = true
+            }
+        }
+    }
     
     required init?(coder aDecoder: NSCoder){
         self.dao = ContatoDao.sharedInstance()
@@ -30,11 +56,13 @@ class FormularioContatoViewController: UIViewController, UINavigationControllerD
             self.telefone.text = contato.telefone
             self.endereco.text = contato.endereco
             self.site.text = contato.site
+            self.latitude.text = contato.latitude?.description
+            self.longitude.text = contato.longitude?.description
             
             if let foto = contato.foto {
                 self.imageView.image = foto
                 
-                self.imageView.layer.cornerRadius = 75
+                self.imageView.layer.cornerRadius = 30
                 self.imageView.layer.masksToBounds = true
                 self.imageView.clipsToBounds = true
             }
@@ -66,13 +94,13 @@ class FormularioContatoViewController: UIViewController, UINavigationControllerD
         
         
         if let imagemSelecionada = info[UIImagePickerControllerEditedImage] as? UIImage{
-         
+            
             
             self.imageView.image = imagemSelecionada
         }
         picker.dismiss(animated: true, completion: nil)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -88,6 +116,14 @@ class FormularioContatoViewController: UIViewController, UINavigationControllerD
         contato.endereco = self.endereco.text!
         contato.site = self.site.text!
         contato.foto = self.imageView.image
+        
+        if let latitude = Double(self.latitude.text!) {
+            contato.latitude = latitude as NSNumber
+        }
+        
+        if let longitude = Double(self.longitude.text!) {
+            contato.longitude = longitude as NSNumber
+        }
     }
     
     func atualizaContato() {
@@ -97,7 +133,7 @@ class FormularioContatoViewController: UIViewController, UINavigationControllerD
         
         _ = self.navigationController?.popViewController(animated: true)
     }
-
+    
     @IBAction func CriaContato(){
         self.pegaDadosDoFormulario()
         
@@ -121,7 +157,10 @@ class FormularioContatoViewController: UIViewController, UINavigationControllerD
     @IBOutlet var endereco: UITextField!
     @IBOutlet var site: UITextField!
     @IBOutlet var imageView: UIImageView!
+    @IBOutlet weak var latitude: UITextField!
+    @IBOutlet weak var longitude: UITextField!
+    @IBOutlet weak var loading: UIActivityIndicatorView!
     
-
+    
 }
 
