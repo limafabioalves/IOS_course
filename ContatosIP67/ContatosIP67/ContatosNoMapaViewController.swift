@@ -59,7 +59,28 @@ class ContatosNoMapaViewController: UIViewController, MKMapViewDelegate {
         
         return pino
     }
-
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView){
+        //let a = view.annotation?.title
+        //mapView.centerCoordinate.latitude = (view.annotation?.coordinate.latitude)!
+        //mapView.centerCoordinate.longitude = (view.annotation?.coordinate.longitude)!
+        
+        mapView.setCenter((view.annotation?.coordinate)!, animated: true)
+        
+        print("altitude: \(mapView.camera.altitude)")
+        if mapView.camera.altitude > 500 {
+            mapView.camera.altitude = 500
+        }
+    }
+    
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        print("mudou a regiao do mapa")
+    }
+    
+    func mapViewDidFinishRenderingMap(_ mapView: MKMapView, fullyRendered: Bool) {
+        print("terminou de renderizar o mapa")
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -72,6 +93,9 @@ class ContatosNoMapaViewController: UIViewController, MKMapViewDelegate {
     
     override func viewWillDisappear(_ animated: Bool) {
         self.mapa.removeAnnotations(self.contatos)
+        self.mapa.camera.altitude = 9874730.73
+        self.mapa.setCenter(self.mapa.userLocation.coordinate, animated: false)
+        
     }
     
 
