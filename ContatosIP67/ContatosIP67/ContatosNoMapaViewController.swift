@@ -65,6 +65,12 @@ class ContatosNoMapaViewController: UIViewController, MKMapViewDelegate {
         //mapView.centerCoordinate.latitude = (view.annotation?.coordinate.latitude)!
         //mapView.centerCoordinate.longitude = (view.annotation?.coordinate.longitude)!
         
+        /*
+        let pinToZoom = view.annotation
+        mapView.showAnnotations([pinToZoom], animated: true)
+        mapView.selectAnnotation([pinToZoom], animated: true)
+        */
+        
         mapView.setCenter((view.annotation?.coordinate)!, animated: true)
         
         print("altitude: \(mapView.camera.altitude)")
