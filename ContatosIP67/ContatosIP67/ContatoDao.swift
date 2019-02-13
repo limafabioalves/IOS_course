@@ -16,10 +16,19 @@ class ContatoDao: CoreDataUtil {
     
     func adiciona(_ contato:Contato){
         contatos.append(contato)
+        
+        ContatoDao.sharedInstance().saveContext()
+    }
+    
+    func atualiza(_ contato:Contato){        
+        ContatoDao.sharedInstance().saveContext()
     }
     
     func remove(_ posicao: Int) {
+        persistentContainer.viewContext.delete(contatos[posicao])
         contatos.remove(at: posicao)
+        
+        ContatoDao.sharedInstance().saveContext()
     }
         
     func listaTodos() -> [Contato] {
@@ -70,7 +79,11 @@ class ContatoDao: CoreDataUtil {
         }
     }
     
-    static func sharedInstance() -> ContatoDao{
+    func novoContato() -> Contato {
+        return NSEntityDescription.insertNewObject(forEntityName: "Contato", into: self.persistentContainer.viewContext) as! Contato
+    }
+    
+    static func sharedInstance() -> ContatoDao {
         if defaultDAO == nil {
             defaultDAO = ContatoDao()
         }

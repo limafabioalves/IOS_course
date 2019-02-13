@@ -108,7 +108,7 @@ class FormularioContatoViewController: UIViewController, UINavigationControllerD
     
     func pegaDadosDoFormulario(){
         if contato == nil {
-            self.contato = Contato()
+            self.contato = dao.novoContato()
         }
         
         contato.nome = self.nome.text!
@@ -132,6 +132,8 @@ class FormularioContatoViewController: UIViewController, UINavigationControllerD
         self.delegate?.contatoAtualizado(contato)
         
         _ = self.navigationController?.popViewController(animated: true)
+        
+        dao.atualiza(contato)
     }
     
     @IBAction func CriaContato(){
