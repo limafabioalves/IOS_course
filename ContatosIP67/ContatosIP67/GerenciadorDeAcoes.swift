@@ -35,10 +35,15 @@ class GerenciadorDeAcoes: NSObject {
             action in self.abrirNavegador()
         })
         
+        let exibirTemperatura = UIAlertAction(title: "Temperatura", style: .default, handler: {
+            action in self.exibirTemperatura()
+        })
+        
         alertView.addAction(cancelar)
         alertView.addAction(ligarParaContato)
         alertView.addAction(exibirContatoNoMapa)
         alertView.addAction(exibirSiteDoContato)
+        alertView.addAction(exibirTemperatura)
         
         self.controller.present(alertView, animated: true, completion: nil)
     }
@@ -77,6 +82,15 @@ class GerenciadorDeAcoes: NSObject {
         }
         
         abrirAplicativo(com: url)
+    }
+    
+    private func exibirTemperatura() {
+        let temperaturaViewController = controller.storyboard?.instantiateViewController(withIdentifier: "temperaturaViewController") as! TemperaturaViewController
+        
+        
+        temperaturaViewController.contato = contato
+        
+        controller.navigationController?.pushViewController(temperaturaViewController, animated: true)
     }
     
     private func abrirAplicativo(com url: String) {
